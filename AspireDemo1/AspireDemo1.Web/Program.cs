@@ -1,3 +1,4 @@
+using AspireDemo1.ServiceDefaults;
 using AspireDemo1.Web;
 using AspireDemo1.Web.Components;
 
