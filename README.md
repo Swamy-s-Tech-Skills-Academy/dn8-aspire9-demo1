@@ -33,4 +33,3 @@ azd config set alpha.resourceGroupDeployments on
 
 azd up
 ```
-

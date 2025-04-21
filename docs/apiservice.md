@@ -13,6 +13,9 @@ The `apiservice.tmpl.yaml` file is a template configuration file for deploying a
 
    - Sets up a UserAssigned managed identity for the container app
    - Uses `{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}` to reference a managed identity ID for accessing the Azure Container Registry
+   - This managed identity is created in the Bicep infrastructure files (resources.bicep) and its ID is passed as an environment variable
+   - The container also has access to this identity through the `AZURE_CLIENT_ID` environment variable: `{{ .Env.MANAGED_IDENTITY_CLIENT_ID }}`
+   - This allows the application to authenticate to other Azure services without storing credentials in the application
 
 3. **Environment Configuration**:
 
@@ -44,14 +47,3 @@ The `apiservice.tmpl.yaml` file is a template configuration file for deploying a
    - Adds tags for identifying the service in Azure and in the Aspire dashboard
 
 When deployed, the template placeholders are replaced with actual values from the deployment environment.
-
-### apiservice.tmpl.yaml
-
-The `apiservice.tmpl.yaml` file is a template configuration file for deploying an API service to Azure Container Apps within an .NET Aspire application. It defines the configuration for a container app service named "apiservice" with the following key sections:
-
-2. **Identity Configuration**:
-   - Sets up a UserAssigned managed identity for the container app
-   - Uses `{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}` to reference a managed identity ID for accessing the Azure Container Registry
-   - This managed identity is created in the Bicep infrastructure files (resources.bicep) and its ID is passed as an environment variable
-   - The container also has access to this identity through the `AZURE_CLIENT_ID` environment variable: `{{ .Env.MANAGED_IDENTITY_CLIENT_ID }}`
-   - This allows the application to authenticate to other Azure services without storing credentials in the application
