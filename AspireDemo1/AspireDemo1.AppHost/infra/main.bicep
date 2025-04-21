@@ -12,6 +12,12 @@ param location string
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
+@description('Resource ID of an external User-Assigned Managed Identity to use alongside the default one')
+param externalManagedIdentityId string = ''
+
+@description('Client ID of the external User-Assigned Managed Identity')
+param externalManagedIdentityClientId string = ''
+
 
 var tags = {
   'azd-env-name': environmentName
@@ -29,12 +35,16 @@ module resources 'resources.bicep' = {
     location: location
     tags: tags
     principalId: principalId
+    externalManagedIdentityId: externalManagedIdentityId
+    externalManagedIdentityClientId: externalManagedIdentityClientId
   }
 }
 
 
 output MANAGED_IDENTITY_CLIENT_ID string = resources.outputs.MANAGED_IDENTITY_CLIENT_ID
 output MANAGED_IDENTITY_NAME string = resources.outputs.MANAGED_IDENTITY_NAME
+output EXTERNAL_MANAGED_IDENTITY_ID string = resources.outputs.EXTERNAL_MANAGED_IDENTITY_ID
+output EXTERNAL_MANAGED_IDENTITY_CLIENT_ID string = resources.outputs.EXTERNAL_MANAGED_IDENTITY_CLIENT_ID
 output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = resources.outputs.AZURE_LOG_ANALYTICS_WORKSPACE_NAME
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = resources.outputs.AZURE_CONTAINER_REGISTRY_ENDPOINT
 output AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID string = resources.outputs.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID

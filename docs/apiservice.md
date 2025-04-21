@@ -28,8 +28,10 @@ The `apiservice.tmpl.yaml` file is a template configuration file for deploying a
       identity:
         type: UserAssigned
         userAssignedIdentities:
-          {{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}: {}
-          [YOUR_EXTERNAL_IDENTITY_RESOURCE_ID]: {}
+          ? "{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}"
+          : {}
+          ? "YOUR_EXTERNAL_IDENTITY_RESOURCE_ID"
+          : {}
       ```
    4. If you need to use the external identity for specific services, you can add additional environment variables for your application to use:
       ```yaml
@@ -37,7 +39,7 @@ The `apiservice.tmpl.yaml` file is a template configuration file for deploying a
         - name: AZURE_CLIENT_ID
           value: {{ .Env.MANAGED_IDENTITY_CLIENT_ID }}
         - name: EXTERNAL_IDENTITY_CLIENT_ID
-          value: [YOUR_EXTERNAL_IDENTITY_CLIENT_ID]
+          value: "YOUR_EXTERNAL_IDENTITY_CLIENT_ID"
       ```
    
    This approach allows you to leverage both the Aspire-created managed identity and your existing managed identity for different Azure resources.

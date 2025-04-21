@@ -10,7 +10,12 @@
       },
       "location": {
         "value": "${AZURE_LOCATION}"
+      },
+      "externalManagedIdentityId": {
+        "value": "${EXTERNAL_MANAGED_IDENTITY_ID}"
+      },
+      "externalManagedIdentityClientId": {
+        "value": "${EXTERNAL_MANAGED_IDENTITY_CLIENT_ID}"
       }
     }
   }
-  

@@ -2,7 +2,10 @@
 param location string = resourceGroup().location
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
-
+@description('Resource ID of an external User-Assigned Managed Identity to use alongside the default one')
+param externalManagedIdentityId string = ''
+@description('Client ID of the external User-Assigned Managed Identity')
+param externalManagedIdentityClientId string = ''
 
 @description('Tags that will be applied to all resources')
 param tags object = {}
@@ -84,6 +87,8 @@ resource explicitContributorUserRoleAssignment 'Microsoft.Authorization/roleAssi
 output MANAGED_IDENTITY_CLIENT_ID string = managedIdentity.properties.clientId
 output MANAGED_IDENTITY_NAME string = managedIdentity.name
 output MANAGED_IDENTITY_PRINCIPAL_ID string = managedIdentity.properties.principalId
+output EXTERNAL_MANAGED_IDENTITY_ID string = externalManagedIdentityId
+output EXTERNAL_MANAGED_IDENTITY_CLIENT_ID string = externalManagedIdentityClientId
 output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = logAnalyticsWorkspace.name
 output AZURE_LOG_ANALYTICS_WORKSPACE_ID string = logAnalyticsWorkspace.id
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerRegistry.properties.loginServer
