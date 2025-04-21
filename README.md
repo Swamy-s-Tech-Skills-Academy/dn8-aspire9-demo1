@@ -15,3 +15,22 @@ This is .NET 8, Aspire 9 Demo
 ![AZD Up](./docs/images/Azd_Up.PNG)
 
 ![AZD Deploy](./docs/images/Azd_Deploy.PNG)
+
+## Few Commands
+
+```powershell
+CD D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd init
+
+#Places the file in the root folder.
+dotnet run --project .\AspireDemo1.AppHost\AspireDemo1.AppHost.csproj --publisher manifest --output-path ../aspire-manifest.json
+dotnet run --project .\HelloDotNetAspire.AppHost.csproj --publisher manifest --output-path aspire-manifest.json
+
+D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd config set alpha.infraSynth on
+D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd infra synth
+
+azd auth login --scope https://management.azure.com//.default
+
+azd config set alpha.resourceGroupDeployments on
+
+azd up
+```
