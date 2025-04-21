@@ -23,7 +23,6 @@ CD D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd init
 
 #Places the file in the root folder.
 dotnet run --project .\AspireDemo1.AppHost\AspireDemo1.AppHost.csproj --publisher manifest --output-path ../aspire-manifest.json
-dotnet run --project .\HelloDotNetAspire.AppHost.csproj --publisher manifest --output-path aspire-manifest.json
 
 D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd config set alpha.infraSynth on
 D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd infra synth
