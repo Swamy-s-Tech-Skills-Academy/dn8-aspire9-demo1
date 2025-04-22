@@ -1,5 +1,4 @@
 using AspireDemo1.ServiceDefaults;
-using Azure.Identity;
 using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,39 +8,6 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
-
-// Add Azure client factory with both managed identities
-builder.Services.AddAzureClients(clientBuilder =>
-{
-    // Get the client IDs from environment variables
-    var defaultManagedIdentityClientId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
-    var externalManagedIdentityClientId = Environment.GetEnvironmentVariable("EXTERNAL_IDENTITY_CLIENT_ID");
-
-    // Configure the default identity credential options (used for Container Registry and other default resources)
-    clientBuilder.UseCredential(options =>
-    {
-        if (!string.IsNullOrEmpty(defaultManagedIdentityClientId))
-        {
-            return new DefaultAzureCredential(new DefaultAzureCredentialOptions
-            {
-                ManagedIdentityClientId = defaultManagedIdentityClientId
-            });
-        }
-        
-        return new DefaultAzureCredential();
-    });
-
-    // If we have an external identity, register it as a credential that can be used by name
-    if (!string.IsNullOrEmpty(externalManagedIdentityClientId))
-    {
-        // Register a named TokenCredential for the external identity
-        builder.Services.AddSingleton(serviceProvider => 
-            new DefaultAzureCredential(new DefaultAzureCredentialOptions
-            {
-                ManagedIdentityClientId = externalManagedIdentityClientId
-            }));
-    }
-});
 
 var app = builder.Build();
 
