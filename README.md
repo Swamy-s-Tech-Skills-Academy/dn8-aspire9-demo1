@@ -1,14 +1,21 @@
-# dn8-aspire9-demo1
+# .NET 8 Aspire 9 Sample
 
-This is .NET 8, Aspire 9 Demo
+This is a sample project demonstrating .NET 8 and Aspire 9 features. The project showcases a distributed application architecture using .NET Aspire's orchestration capabilities.
 
-## Reference(s)
+## Project Structure
+
+- **AspireDemo1.AppHost**: The orchestrator application that defines and configures the services
+- **AspireDemo1.ApiService**: A weather forecast API service
+- **AspireDemo1.Web**: A web frontend that consumes the API service
+- **AspireDemo1.ServiceDefaults**: Shared service configuration defaults
+
+## Reference Documentation
 
 > 1. <https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview>
-> 1. <https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azure/aca-deployment>
-> 1. <https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azure/aca-deployment-github-actions?tabs=windows&pivots=github-actions>
+> 2. <https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azure/aca-deployment>
+> 3. <https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azure/aca-deployment-github-actions?tabs=windows&pivots=github-actions>
 
-## Images
+## Deployment Images
 
 ![AZD Init](./docs/images/Azd_Init.PNG)
 
@@ -22,20 +29,41 @@ This is .NET 8, Aspire 9 Demo
 
 ![AZD Deploy](./docs/images/AZD_RG_Deploy.PNG)
 
-## Few Commands
+## Deployment Commands
+
+Below are the key commands used to deploy this Aspire application to Azure Container Apps:
 
 ```powershell
-CD D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd init
+# Initialize the Azure Developer CLI in the project
+cd AspireDemo1\AspireDemo1.AppHost
+azd init
 
-#Places the file in the root folder.
+# Generate the Aspire manifest file
 dotnet run --project .\AspireDemo1.AppHost\AspireDemo1.AppHost.csproj --publisher manifest --output-path ../aspire-manifest.json
 
-D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd config set alpha.infraSynth on
-D:\STSA\dn8-aspire9-demo1\AspireDemo1\AspireDemo1.AppHost> azd infra synth
+# Enable infrastructure synthesis feature
+azd config set alpha.infraSynth on
 
+# Generate infrastructure as code files
+azd infra synth
+
+# Authenticate with Azure
 azd auth login --scope https://management.azure.com//.default
 
+# Enable resource group level deployments
 azd config set alpha.resourceGroupDeployments on
 
+# Deploy the application to Azure
 azd up
 ```
+
+## Local Development
+
+To run the application locally, use:
+
+```powershell
+cd AspireDemo1
+dotnet run --project .\AspireDemo1.AppHost\AspireDemo1.AppHost.csproj
+```
+
+This will start the Aspire dashboard and all services locally.
