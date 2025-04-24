@@ -1,4 +1,5 @@
-targetScope = 'subscription'
+// targetScope = 'subscription'
+targetScope = 'resourceGroup'
 
 @minLength(1)
 @maxLength(64)
@@ -18,18 +19,18 @@ param externalManagedIdentityId string = ''
 @description('Client ID of the external User-Assigned Managed Identity')
 param externalManagedIdentityClientId string = ''
 
-
 var tags = {
   'azd-env-name': environmentName
 }
 
-resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
-  name: 'rg-${environmentName}'
-  location: location
-  tags: tags
-}
+// resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
+//   name: 'rg-${environmentName}'
+//   location: location
+//   tags: tags
+// }
+
 module resources 'resources.bicep' = {
-  scope: rg
+  // scope: rg
   name: 'resources'
   params: {
     location: location
@@ -39,7 +40,6 @@ module resources 'resources.bicep' = {
     externalManagedIdentityClientId: externalManagedIdentityClientId
   }
 }
-
 
 output MANAGED_IDENTITY_CLIENT_ID string = resources.outputs.MANAGED_IDENTITY_CLIENT_ID
 output MANAGED_IDENTITY_NAME string = resources.outputs.MANAGED_IDENTITY_NAME
