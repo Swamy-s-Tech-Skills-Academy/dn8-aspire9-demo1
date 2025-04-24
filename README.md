@@ -14,7 +14,13 @@ This is .NET 8, Aspire 9 Demo
 
 ![AZD Up](./docs/images/Azd_Up.PNG)
 
+### Subscription Level Deployment
+
 ![AZD Deploy](./docs/images/Azd_Deploy.PNG)
+
+### Resource Group Level Deployment
+
+![AZD Deploy](./docs/images/AZD_RG_Deploy.PNG)
 
 ## Few Commands
 
