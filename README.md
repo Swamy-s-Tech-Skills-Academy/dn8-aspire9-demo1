@@ -23,7 +23,7 @@ This is a sample project demonstrating .NET 8 and Aspire 9 features. The project
 
 ### Subscription Level Deployment
 
-![AZD Deploy](./docs/images/Azd_Deploy.PNG)
+![AZD Deploy](./docs/images/AZD_Deploy.PNG)
 
 ### Resource Group Level Deployment
 
@@ -56,6 +56,35 @@ azd config set alpha.resourceGroupDeployments on
 # Deploy the application to Azure
 azd up
 ```
+
+## Using an Existing Log Analytics Workspace
+
+By default, the deployment creates a new Log Analytics workspace. If you want to use an existing workspace:
+
+1. Get your existing Log Analytics workspace details:
+
+   ```powershell
+   # Get the workspace ID and customer ID
+   $workspace = Get-AzOperationalInsightsWorkspace -Name "YourWorkspaceName" -ResourceGroupName "YourResourceGroup"
+   $workspaceId = $workspace.ResourceId
+   $customerId = $workspace.CustomerId
+
+   # Get the workspace key
+   $sharedKey = (Get-AzOperationalInsightsWorkspaceSharedKey -ResourceGroupName "YourResourceGroup" -Name "YourWorkspaceName").PrimarySharedKey
+   ```
+
+2. Set environment variables for the deployment:
+
+   ```powershell
+   azd env set EXISTING_LOG_ANALYTICS_WORKSPACE_ID $workspaceId
+   azd env set EXISTING_LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID $customerId
+   azd env set EXISTING_LOG_ANALYTICS_WORKSPACE_SHARED_KEY $sharedKey
+   ```
+
+3. Now run the deployment:
+   ```powershell
+   azd up
+   ```
 
 ## Local Development
 
