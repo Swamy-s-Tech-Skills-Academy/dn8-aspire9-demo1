@@ -16,6 +16,15 @@
       },
       "externalManagedIdentityClientId": {
         "value": "${EXTERNAL_MANAGED_IDENTITY_CLIENT_ID}"
+      },
+      "existingLogAnalyticsWorkspaceId": {
+        "value": "${EXISTING_LOG_ANALYTICS_WORKSPACE_ID}"
+      },
+      "existingLogAnalyticsWorkspaceCustomerId": {
+        "value": "${EXISTING_LOG_ANALYTICS_WORKSPACE_CUSTOMER_ID}"
+      },
+      "existingLogAnalyticsWorkspaceSharedKey": {
+        "value": "${EXISTING_LOG_ANALYTICS_WORKSPACE_SHARED_KEY}"
       }
     }
   }

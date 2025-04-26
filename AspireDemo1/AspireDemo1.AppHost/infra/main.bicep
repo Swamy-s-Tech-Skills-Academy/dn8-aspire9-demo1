@@ -19,6 +19,15 @@ param externalManagedIdentityId string = ''
 @description('Client ID of the external User-Assigned Managed Identity')
 param externalManagedIdentityClientId string = ''
 
+@description('Resource ID of an existing Log Analytics workspace to use')
+param existingLogAnalyticsWorkspaceId string = ''
+
+@description('Customer ID of the existing Log Analytics workspace')
+param existingLogAnalyticsWorkspaceCustomerId string = ''
+
+@description('Primary shared key of the existing Log Analytics workspace')
+param existingLogAnalyticsWorkspaceSharedKey string = ''
+
 var tags = {
   'azd-env-name': environmentName
 }
@@ -38,6 +47,9 @@ module resources 'resources.bicep' = {
     principalId: principalId
     externalManagedIdentityId: externalManagedIdentityId
     externalManagedIdentityClientId: externalManagedIdentityClientId
+    existingLogAnalyticsWorkspaceId: existingLogAnalyticsWorkspaceId
+    existingLogAnalyticsWorkspaceCustomerId: existingLogAnalyticsWorkspaceCustomerId
+    existingLogAnalyticsWorkspaceSharedKey: existingLogAnalyticsWorkspaceSharedKey
   }
 }
 
